@@ -28,12 +28,12 @@ const http = axios.create({
 });
 //请求拦截器，密钥的设置
 http.interceptors.request.use(
-  () => {
+  (config) => {
     //哪些接口需要携带token，从白名单列表里面读取
     const whiteList = globalConfig.whiteListApi;
     const url = config.url;
     const token = localStorage.getItem("token");
-    if ((whiteList.indexOf(url) === -1) & token) {
+    if ((whiteList.indexOf(url) === -1) && token) {
       config.headers.token = token;
     }
     //防止伪造请求 设置密钥
